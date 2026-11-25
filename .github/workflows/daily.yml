@@ -3,7 +3,6 @@ name: Daily repository check
 on:
   schedule:
     - cron: '47 3 * * *'
-    - cron: '53 8 * * *'
     - cron: '11 16 * * *'
   workflow_dispatch:
 
@@ -65,8 +64,7 @@ jobs:
           plan = rng.sample(checks, target - 1) + ["summary"]
 
           limits = {
-              "47 3 * * *": (target + 2) // 3,
-              "53 8 * * *": (2 * target + 2) // 3,
+              "47 3 * * *": (target + 1) // 2,
               "11 16 * * *": target,
           }
           limit = target if os.environ["EVENT_NAME"] == "workflow_dispatch" else limits[os.environ["SCHEDULE"]]
